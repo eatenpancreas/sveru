@@ -1,0 +1,15 @@
+[package]
+name = "sveru"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "sveru"
+path = "lib.rs"
+
+[dependencies]
+sveru-macro = { path = "../sveru_macro" }
+serde = { version = "1.0.203", features = ["derive"] }
+askama_axum = "0.4.0"
+axum = "0.7.5"
+derived-deref = "2.1.0"
