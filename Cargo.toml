@@ -8,7 +8,7 @@ name = "sveru"
 path = "lib.rs"
 
 [dependencies]
-sveru-macro = { path = "../sveru_macro" }
+sveru-macro = { git = "https://github.com/eatenpancreas/sveru_macro" }
 serde = { version = "1.0.203", features = ["derive"] }
 askama_axum = "0.4.0"
 axum = "0.7.5"
