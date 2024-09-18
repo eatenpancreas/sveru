@@ -1,7 +1,8 @@
 use axum::http::StatusCode;
 use axum::Json;
 use axum::response::{IntoResponse, Response};
-use crate::common::errors::*;
+use super::*;
+use super::merged::*;
 
 impl IntoResponse for ApiError {
   fn into_response(self) -> Response {
@@ -40,3 +41,11 @@ impl IntoResponse for UserError {
     ApiError::from(self).into_response()
   }
 }
+
+impl IntoResponse for AoSError {
+  fn into_response(self) -> Response {
+    ApiError::from(self).into_response()
+  }
+}
+
+
