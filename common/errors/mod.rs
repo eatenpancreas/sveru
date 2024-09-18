@@ -8,6 +8,7 @@ mod merged;
 
 pub use into_response::*;
 pub use r#impl::*;
+pub use merged::*;
 
 #[derive(Error, Serialize, TS, Debug)]
 #[error("{message}")]
