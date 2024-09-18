@@ -42,9 +42,21 @@ impl IntoResponse for UserError {
   }
 }
 
-impl IntoResponse for AoSError {
+impl IntoResponse for AoSeError {
   fn into_response(self) -> Response {
-    ApiError::from(self).into_response()
+    match self {
+      Self::S(e) => e.into_response(),
+      Self::A(e) => e.into_response(),
+    }
+  }
+}
+
+impl IntoResponse for AeSeError {
+  fn into_response(self) -> Response {
+    match self {
+      Self::S(e) => e.into_response(),
+      Self::A(e) => e.into_response(),
+    }
   }
 }
 

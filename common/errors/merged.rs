@@ -16,16 +16,24 @@ pub enum ApiError {
   FieldError(#[from] FieldError),
   #[error(transparent)]
   UserError(#[from] UserError),
-  
-  #[error(transparent)]
-  AoSError(#[from] AoSError),
 }
 
 #[derive(Error, Serialize, Debug, TS)]
-pub enum AoSError {
+#[serde(untagged)]
+pub enum AeSeError {
   #[error(transparent)]
   S(#[from] ServerError),
   #[error(transparent)]
   A(#[from] AuthenticationError),
+}
+
+
+#[derive(Error, Serialize, Debug, TS)]
+#[serde(untagged)]
+pub enum AoSeError {
+  #[error(transparent)]
+  S(#[from] ServerError),
+  #[error(transparent)]
+  A(#[from] AuthorizationError),
 }
 
