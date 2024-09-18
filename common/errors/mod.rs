@@ -14,7 +14,7 @@ pub use merged::*;
 #[error("{message}")]
 pub struct ServerError {
   pub message: String,
-  pub code: u16
+  pub code: &'static str
 }
 
 #[derive(Error, Serialize, TS, Debug)]
