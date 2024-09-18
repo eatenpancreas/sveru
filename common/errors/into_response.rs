@@ -35,7 +35,7 @@ impl IntoResponse for FieldError {
   }
 }
 
-impl IntoResponse for FatalError {
+impl IntoResponse for UserError {
   fn into_response(self) -> Response {
     ApiError::from(self).into_response()
   }

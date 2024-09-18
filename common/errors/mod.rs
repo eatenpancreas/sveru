@@ -3,8 +3,13 @@ use thiserror::Error;
 use ts_rs::TS;
 
 mod into_response;
+mod r#impl;
+
+pub use into_response::*;
+pub use r#impl::*;
 
 #[derive(Error, Serialize)]
+#[serde(untagged)]
 pub(crate) enum ApiError {
   #[error(transparent)]
   ServerError(#[from] ServerError),
@@ -15,39 +20,39 @@ pub(crate) enum ApiError {
   #[error(transparent)]
   FieldError(#[from] FieldError),
   #[error(transparent)]
-  FatalError(#[from] FatalError)
+  UserError(#[from] UserError)
 }
 
 #[derive(Error, Serialize, TS)]
 #[error("{message}")]
 pub struct ServerError {
-  message: String,
-  code: u16
+  pub message: String,
+  pub code: u16
 }
 
 #[derive(Error, Serialize, TS)]
 #[error("{message}")]
 pub struct AuthenticationError {
-  message: String
+  pub message: String
 }
 
 #[derive(Error, Serialize, TS)]
 #[error("{message}")]
 pub struct AuthorizationError {
-  message: String
+  pub message: String
 }
 
 #[derive(Error, Serialize, TS)]
 #[error("{message}")]
 pub struct FieldError {
-  field: String,
-  message: String
+  pub field: String,
+  pub message: String
 }
 
 #[derive(Error, Serialize, TS)]
 #[error("{message}")]
-pub struct FatalError {
-  message: String
+pub struct UserError {
+  pub message: String
 }
 
 

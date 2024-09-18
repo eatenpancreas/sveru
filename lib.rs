@@ -6,11 +6,7 @@ pub mod macro_functions {
   pub use endpoint::*;
 }
 pub mod common {
-  pub mod print_self;
   pub mod errors;
-}
-pub mod compat {
-  pub mod sqlx;
 }
 
 pub use sveru_macro::endpoint;
