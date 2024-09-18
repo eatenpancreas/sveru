@@ -10,6 +10,8 @@ path = "lib.rs"
 [dependencies]
 sveru-macro = { git = "https://github.com/eatenpancreas/sveru_macro" }
 serde = { version = "1.0.203", features = ["derive"] }
-askama_axum = "0.4.0"
 axum = "0.7.5"
 derived-deref = "2.1.0"
+sqlx = "0.8.2"
+thiserror = "1.0.63"
+ts-rs = "9.0.1"
