@@ -6,8 +6,8 @@ use super::merged::*;
 
 impl IntoResponse for ApiError {
   fn into_response(self) -> Response {
-    let res = Json(self).into_response();
-    res.status() = StatusCode::BAD_REQUEST;
+    let mut res = Json(self).into_response();
+    *res.status_mut() = StatusCode::BAD_REQUEST;
     res
   }
 }
