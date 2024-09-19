@@ -5,6 +5,7 @@ use ts_rs::TS;
 mod into_response;
 mod r#impl;
 mod merged;
+mod into;
 
 pub use into_response::*;
 pub use r#impl::*;
@@ -14,7 +15,8 @@ pub use merged::*;
 #[error("{message}")]
 pub struct ServerError {
   pub message: String,
-  pub code: &'static str
+  pub code: &'static str,
+  pub source: Option<String>,
 }
 
 #[derive(Error, Serialize, TS, Debug)]

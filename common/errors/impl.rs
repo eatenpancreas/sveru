@@ -1,8 +1,9 @@
 use crate::common::errors::*;
 
 impl ServerError {
-  pub fn new(message: &str, code: &'static str) -> Self { Self { message: message.to_string(), code }}
-  pub fn db(code: &'static str) -> Self { Self::new("Something went wrong with the database", code) }
+  pub fn new(
+    message: &str, code: &'static str, source: Option<String>
+  ) -> Self { Self { message: message.to_string(), code, source }}
 }
 impl AuthenticationError {
   pub fn new(message: &str) -> Self { Self { message: message.to_string() }}
