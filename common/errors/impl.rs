@@ -13,7 +13,8 @@ impl AuthorizationError {
   pub fn new_string(message: String) -> Self { Self { message } }
 }
 impl FieldError {
-  pub fn new(message: &str, field: &str) -> Self { Self { field: field.to_string(), message: message.to_string() }}
+  pub fn new(message: &str, field: &str) -> Self { Self::new_string(field.to_string(), message.to_string())}
+  pub fn new_string(message: String, field: String) -> Self { Self { message, field } }
 }
 impl UserError {
   pub fn new(message: &str) -> Self { Self { message: message.to_string() }}

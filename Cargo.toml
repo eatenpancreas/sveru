@@ -16,3 +16,4 @@ sqlx = { version = "0.8.2", features = ["postgres"] }
 thiserror = "1.0.63"
 ts-rs = "9.0.1"
 jsonwebtoken = "9.3.0"
+bcrypt = "0.15.1"

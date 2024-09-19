@@ -27,7 +27,6 @@ pub enum AeSeError {
   Se(#[from] ServerError),
 }
 
-
 #[derive(Error, Serialize, Debug, TS)]
 #[serde(untagged)]
 pub enum AoSeError {
