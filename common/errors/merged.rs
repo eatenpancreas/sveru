@@ -7,24 +7,24 @@ use super::*;
 #[serde(untagged)]
 pub enum ApiError {
   #[error(transparent)]
-  ServerError(#[from] ServerError),
+  FieldError(#[from] FieldError),
+  #[error(transparent)]
+  UserError(#[from] UserError),
   #[error(transparent)]
   AuthenticationError(#[from] AuthenticationError),
   #[error(transparent)]
   AuthorizationError(#[from] AuthorizationError),
   #[error(transparent)]
-  FieldError(#[from] FieldError),
-  #[error(transparent)]
-  UserError(#[from] UserError),
+  ServerError(#[from] ServerError),
 }
 
 #[derive(Error, Serialize, Debug, TS)]
 #[serde(untagged)]
 pub enum AeSeError {
   #[error(transparent)]
-  S(#[from] ServerError),
+  Ae(#[from] AuthenticationError),
   #[error(transparent)]
-  A(#[from] AuthenticationError),
+  Se(#[from] ServerError),
 }
 
 
@@ -32,8 +32,26 @@ pub enum AeSeError {
 #[serde(untagged)]
 pub enum AoSeError {
   #[error(transparent)]
-  S(#[from] ServerError),
+  Ao(#[from] AuthorizationError),
   #[error(transparent)]
-  A(#[from] AuthorizationError),
+  Se(#[from] ServerError),
+}
+
+#[derive(Error, Serialize, Debug, TS)]
+#[serde(untagged)]
+pub enum FiSeError {
+  #[error(transparent)]
+  Fi(#[from] FieldError),
+  #[error(transparent)]
+  Se(#[from] ServerError),
+}
+
+#[derive(Error, Serialize, Debug, TS)]
+#[serde(untagged)]
+pub enum UsSeError {
+  #[error(transparent)]
+  Us(#[from] UserError),
+  #[error(transparent)]
+  Se(#[from] ServerError),
 }
 

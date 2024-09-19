@@ -45,8 +45,8 @@ impl IntoResponse for UserError {
 impl IntoResponse for AoSeError {
   fn into_response(self) -> Response {
     match self {
-      Self::S(e) => e.into_response(),
-      Self::A(e) => e.into_response(),
+      Self::Ao(e) => e.into_response(),
+      Self::Se(e) => e.into_response(),
     }
   }
 }
@@ -54,10 +54,29 @@ impl IntoResponse for AoSeError {
 impl IntoResponse for AeSeError {
   fn into_response(self) -> Response {
     match self {
-      Self::S(e) => e.into_response(),
-      Self::A(e) => e.into_response(),
+      Self::Ae(e) => e.into_response(),
+      Self::Se(e) => e.into_response(),
     }
   }
 }
+
+impl IntoResponse for FiSeError {
+  fn into_response(self) -> Response {
+    match self {
+      Self::Fi(e) => e.into_response(),
+      Self::Se(e) => e.into_response(),
+    }
+  }
+}
+
+impl IntoResponse for UsSeError {
+  fn into_response(self) -> Response {
+    match self {
+      Self::Us(e) => e.into_response(),
+      Self::Se(e) => e.into_response(),
+    }
+  }
+}
+
 
 
