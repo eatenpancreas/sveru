@@ -12,6 +12,7 @@ sveru-macro = { git = "https://github.com/eatenpancreas/sveru_macro" }
 serde = { version = "1.0.203", features = ["derive"] }
 axum = "0.7.5"
 derived-deref = "2.1.0"
-sqlx = "0.8.2"
+sqlx = { version = "0.8.2", features = ["postgres"] }
 thiserror = "1.0.63"
 ts-rs = "9.0.1"
+jsonwebtoken = "9.3.0"
