@@ -19,7 +19,7 @@ impl <Err: Serialize> ErrorDrain<Err> {
     }
     None
   }
-  pub fn enforce_all(self) -> Result<(), Self> {
+  pub fn flush(self) -> Result<(), Self> {
     if self.0.len() > 0 { Err(self) } else { Ok(()) }
   }
 }
