@@ -1,4 +1,4 @@
-use axum::response::{IntoResponse, Response};
+
 use crate::common::errors::{AeSeError, AoSeError, ApiError, FiSeError, UsSeError};
 
 impl From<AoSeError> for ApiError {
@@ -9,7 +9,7 @@ impl From<AoSeError> for ApiError {
     }
   }
 }
-impl From<AoSeError> for AeSeError {
+impl From<AeSeError> for ApiError {
   fn from(value: AeSeError) -> Self {
     match value {
       AeSeError::Ae(e) => e.into(),
@@ -17,7 +17,7 @@ impl From<AoSeError> for AeSeError {
     }
   }
 }
-impl From<AoSeError> for FiSeError {
+impl From<FiSeError> for ApiError {
   fn from(value: FiSeError) -> Self {
     match value {
       FiSeError::Fi(e) => e.into(),
@@ -25,7 +25,7 @@ impl From<AoSeError> for FiSeError {
     }
   }
 }
-impl From<AoSeError> for UsSeError {
+impl From<UsSeError> for ApiError {
   fn from(value: UsSeError) -> Self {
     match value {
       UsSeError::Us(e) => e.into(),

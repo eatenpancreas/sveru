@@ -1,7 +1,13 @@
-use sqlx::PgPool;
+use crate::common::errors::{ErrorDrain, FieldError};
 
-#[sqlx::test]
-pub async fn test_err_conversion(db: PgPool) {
-  sqlx::query_scalar("SELECT last_login FROM users WHERE username = $1")
-    .fetch_one(db);
+#[test]
+pub fn test_err_conversion() {
+  let mut drain = ErrorDrain::<FieldError>::new();
+  let i = drain.push::<_, FieldError>(Ok(10)).unwrap();
+  let i2 = drain.push::<(), _>(Err(FieldError::new("aa", "bb")));
+  let drain = drain.drain().unwrap_err();
+  
+  assert_eq!(i, 10);
+  assert_eq!(i2, None);
+  assert_eq!(drain.len(), 1)
 }

@@ -7,10 +7,10 @@ mod r#impl;
 mod merged;
 mod err_into_sveru_err;
 mod drain;
-mod into_api_error;
 mod from_merged;
 
 pub use err_into_sveru_err::*;
+pub use drain::*;
 pub use merged::*;
 
 #[derive(Error, Serialize, TS, Debug)]

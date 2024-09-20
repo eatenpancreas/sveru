@@ -12,6 +12,14 @@ impl IntoResponse for ApiError {
   }
 }
 
+impl <E: Serialize> IntoResponse for ErrorDrain<E> {
+  fn into_response(self) -> Response {
+    let mut res = Json(self).into_response();
+    *res.status_mut() = StatusCode::BAD_REQUEST;
+    res
+  }
+}
+
 impl IntoResponse for ServerError {
   fn into_response(self) -> Response { ApiError::from(self).into_response() }
 }
@@ -39,6 +47,5 @@ impl IntoResponse for FiSeError {
 impl IntoResponse for UsSeError {
   fn into_response(self) -> Response { ApiError::from(self).into_response() }
 }
-
 
 
