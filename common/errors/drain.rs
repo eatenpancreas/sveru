@@ -1,7 +1,7 @@
 use serde::Serialize;
 
 #[derive(Serialize)]
-pub struct ErrorDrain<Err: Serialize>(Vec<Err>);
+pub struct ErrorDrain<Err: Serialize>(pub(crate) Vec<Err>);
 pub struct ErrorDrainWith<T, Err: Serialize>(ErrorDrain<Err>, Option<T>);
 
 impl <Err: Serialize> From<Err> for ErrorDrain<Err> {

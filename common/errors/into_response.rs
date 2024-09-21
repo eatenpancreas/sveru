@@ -13,8 +13,12 @@ impl IntoResponse for ApiError {
 }
 
 impl <E: Serialize> IntoResponse for ErrorDrain<E> {
-  fn into_response(self) -> Response {
-    let mut res = Json(self).into_response();
+  fn into_response(mut self) -> Response {
+    let mut res = if self.0.len() == 1 {
+      Json(self.0.pop().unwrap()).into_response()
+    } else {
+      Json(self).into_response()
+    };
     *res.status_mut() = StatusCode::BAD_REQUEST;
     res
   }
