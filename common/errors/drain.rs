@@ -13,6 +13,14 @@ impl <Err: Serialize + Debug> From<Err> for ErrorDrain<Err> {
   }
 }
 
+impl <Err: Serialize + Debug + From<E>, E> From<E> for ErrorDrain<Err> {
+  fn from(value: E) -> Self {
+    let mut drain = ErrorDrain::new();
+    drain.push_err(value.into());
+    drain
+  }
+}
+
 impl <Err: Serialize + Debug> ErrorDrain<Err> {
   pub fn new() -> Self { Self ( vec![] )}
   pub fn push_err(&mut self, err: Err) {
