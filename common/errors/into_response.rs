@@ -1,4 +1,3 @@
-use std::fmt::Debug;
 use axum::http::StatusCode;
 use axum::Json;
 use axum::response::{IntoResponse, Response};
@@ -13,7 +12,7 @@ impl IntoResponse for ApiError {
   }
 }
 
-impl <E: Serialize + Debug> IntoResponse for ErrorDrain<E> {
+impl <E: Serialize> IntoResponse for ErrorDrain<E> {
   fn into_response(mut self) -> Response {
     let mut res = if self.0.len() == 1 {
       Json(self.0.pop().unwrap()).into_response()
