@@ -4,16 +4,19 @@ use serde::Serialize;
 pub struct ErrorDrain<Err: Serialize>(Vec<Err>);
 pub struct ErrorDrainWith<T, Err: Serialize>(ErrorDrain<Err>, Option<T>);
 
-impl <Err> Into<ErrorDrain<Err>> for Err {
-  fn into(self) -> ErrorDrain<Err> {
+impl <Err: Serialize> From<Err> for ErrorDrain<Err> {
+  fn from(value: Err) -> Self {
     let mut drain = ErrorDrain::new();
-    drain.push(Err(self));
+    drain.push_err(value);
     drain
   }
 }
 
 impl <Err: Serialize> ErrorDrain<Err> {
   pub fn new() -> Self { Self ( vec![] )}
+  pub fn push_err(&mut self, err: Err) {
+    self.0.push(err);
+  }
   pub fn push<T>(&mut self, res: Result<T, Err>) -> Option<T> {
     match res {
       Ok(t) => return Some(t),
@@ -29,6 +32,10 @@ impl <Err: Serialize> ErrorDrain<Err> {
   }
   pub fn with_into<T, E: Into<Err>>(self, res: Result<T, E>) -> ErrorDrainWith<T, Err> {
     self.with(res.map_err(|e| e.into()))
+  }
+  pub fn with_err(mut self, err: Err) -> Self {
+    self.push_err(err);
+    self
   }
   pub fn flush(self) -> Result<(), Self> {
     if self.0.len() > 0 { Err(self) } else { Ok(()) }
@@ -47,6 +54,10 @@ impl <T, Err: Serialize> ErrorDrainWith<T, Err> {
   }
   pub fn with_into<T2, E: Into<Err>>(self, res: Result<T2, E>) -> ErrorDrainWith<(T, T2), Err> {
     self.with(res.map_err(|e| e.into()))
+  }
+  pub fn with_err(mut self, err: Err) -> Self {
+    self.0.push_err(err);
+    self
   }
   pub fn flush(self) -> Result<T, ErrorDrain<Err>> {
     self.0.flush().map(|_| self.1.unwrap() )
