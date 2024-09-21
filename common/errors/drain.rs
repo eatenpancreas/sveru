@@ -1,10 +1,11 @@
+use std::fmt::Debug;
 use serde::Serialize;
 
-#[derive(Serialize)]
-pub struct ErrorDrain<Err: Serialize>(pub(crate) Vec<Err>);
-pub struct ErrorDrainWith<T, Err: Serialize>(ErrorDrain<Err>, Option<T>);
+#[derive(Serialize, Debug)]
+pub struct ErrorDrain<Err: Serialize + Debug>(pub(crate) Vec<Err>);
+pub struct ErrorDrainWith<T, Err: Serialize + Debug>(ErrorDrain<Err>, Option<T>);
 
-impl <Err: Serialize> From<Err> for ErrorDrain<Err> {
+impl <Err: Serialize + Debug> From<Err> for ErrorDrain<Err> {
   fn from(value: Err) -> Self {
     let mut drain = ErrorDrain::new();
     drain.push_err(value);
@@ -12,7 +13,7 @@ impl <Err: Serialize> From<Err> for ErrorDrain<Err> {
   }
 }
 
-impl <Err: Serialize> ErrorDrain<Err> {
+impl <Err: Serialize + Debug> ErrorDrain<Err> {
   pub fn new() -> Self { Self ( vec![] )}
   pub fn push_err(&mut self, err: Err) {
     self.0.push(err);
@@ -42,7 +43,7 @@ impl <Err: Serialize> ErrorDrain<Err> {
   }
 }
 
-impl <T, Err: Serialize> ErrorDrainWith<T, Err> {
+impl <T, Err: Serialize + Debug> ErrorDrainWith<T, Err> {
   pub fn with<T2>(mut self, res: Result<T2, Err>) -> ErrorDrainWith<(T, T2), Err> {
     let mut tt = None;
     if let Some(t2) = self.0.push(res) {
