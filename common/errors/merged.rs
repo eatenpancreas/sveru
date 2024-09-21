@@ -18,7 +18,7 @@ pub enum ApiError {
   ServerError(#[from] ServerError),
 }
 
-#[derive(Error, Serialize, Debug, TS)]
+#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
 #[serde(untagged)]
 pub enum AeSeError {
   #[error(transparent)]
@@ -27,7 +27,7 @@ pub enum AeSeError {
   Se(#[from] ServerError),
 }
 
-#[derive(Error, Serialize, Debug, TS)]
+#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
 #[serde(untagged)]
 pub enum AoSeError {
   #[error(transparent)]
@@ -36,7 +36,7 @@ pub enum AoSeError {
   Se(#[from] ServerError),
 }
 
-#[derive(Error, Serialize, Debug, TS)]
+#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
 #[serde(untagged)]
 pub enum FiSeError {
   #[error(transparent)]
@@ -45,7 +45,7 @@ pub enum FiSeError {
   Se(#[from] ServerError),
 }
 
-#[derive(Error, Serialize, Debug, TS)]
+#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
 #[serde(untagged)]
 pub enum UsSeError {
   #[error(transparent)]
