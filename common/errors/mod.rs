@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::{Serialize};
 use thiserror::Error;
 use ts_rs::TS;
 
@@ -13,33 +13,33 @@ pub use err_into_sveru_err::*;
 pub use drain::*;
 pub use merged::*;
 
-#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
+#[derive(Error, Serialize, TS, Debug, Clone)]
 #[error("{message}")]
 pub struct ServerError {
   pub message: String,
   pub code: &'static str,
 }
 
-#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
+#[derive(Error, Serialize, TS, Debug, Clone)]
 #[error("{message}")]
 pub struct AuthenticationError {
   pub message: String
 }
 
-#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
+#[derive(Error, Serialize, TS, Debug, Clone)]
 #[error("{message}")]
 pub struct AuthorizationError {
   pub message: String
 }
 
-#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
+#[derive(Error, Serialize, TS, Debug, Clone)]
 #[error("{message}")]
 pub struct FieldError {
   pub field: String,
   pub message: String
 }
 
-#[derive(Error, Serialize, Deserialize, TS, Debug, Clone)]
+#[derive(Error, Serialize, TS, Debug, Clone)]
 #[error("{message}")]
 pub struct UserError {
   pub message: String
