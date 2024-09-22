@@ -5,7 +5,7 @@ use super::*;
 
 #[derive(Error, Serialize, Debug, TS)]
 #[serde(tag = "error")]
-#[serde(rename_all = "lowercase")]
+#[serde(rename_all = "snake_case")]
 pub enum ApiError {
   #[error(transparent)]
   FieldError(#[from] FieldError),
