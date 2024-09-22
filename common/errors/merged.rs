@@ -4,7 +4,8 @@ use ts_rs::TS;
 use super::*;
 
 #[derive(Error, Serialize, Debug, TS)]
-#[serde(untagged)]
+#[serde(tag = "error")]
+#[serde(rename_all = "lowercase")]
 pub enum ApiError {
   #[error(transparent)]
   FieldError(#[from] FieldError),

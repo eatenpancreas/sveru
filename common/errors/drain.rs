@@ -60,6 +60,7 @@ impl <T, Err: Serialize> ErrorDrainWith<T, Err> {
     self
   }
   pub fn flush(self) -> Result<T, ErrorDrain<Err>> {
+    // unwrap in the map is always Some, because it is not type Err
     self.0.flush().map(|_| self.1.unwrap() )
   }
 }
