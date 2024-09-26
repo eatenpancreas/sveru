@@ -1,4 +1,5 @@
 use bcrypt::BcryptError;
+use sqlx::types::uuid;
 use crate::common::errors::ServerError;
 
 pub trait IntoServerError{
@@ -39,6 +40,19 @@ impl IntoServerError for BcryptError {
 }
 
 impl <T> ResultIntoServerError<T> for Result<T, BcryptError> {
+  fn into_server_error(self, code: &'static str) -> Result<T, ServerError> {
+    self.map_err(|x| x.into_server_error(code))
+  }
+}
+
+
+impl IntoServerError for uuid::Error {
+  fn into_server_error(self, code: &'static str) -> ServerError {
+    ServerError::new_string(format!("Something went wrong with uuid parsing: {}", self.to_string()), code)
+  }
+}
+
+impl <T> ResultIntoServerError<T> for Result<T, uuid::Error> {
   fn into_server_error(self, code: &'static str) -> Result<T, ServerError> {
     self.map_err(|x| x.into_server_error(code))
   }
