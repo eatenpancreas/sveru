@@ -8,12 +8,10 @@ mod merged;
 mod err_into_sveru_err;
 mod drain;
 mod from_merged;
-mod collect_errs;
 
 pub use err_into_sveru_err::*;
 pub use drain::*;
 pub use merged::*;
-pub use collect_errs::*;
 
 #[derive(Error, Serialize, TS, Debug, Clone)]
 #[error("{message}")]
